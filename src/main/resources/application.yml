@@ -1,0 +1,8 @@
+spring:
+  datasource:
+    url: jdbc:mongo://<\serverName>/<\databaseName>
+    driver-class-name: kr.jypark.jpa.config.NewspicMongoDriver
+  jpa:
+    hibernate:
+      ddl-auto: none
+

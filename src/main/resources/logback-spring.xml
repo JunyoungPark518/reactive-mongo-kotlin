@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration level="INFO">
+	<statusListener class="ch.qos.logback.core.status.NopStatusListener" />
+	
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<Pattern>%d{yyyy-MM-dd HH:mm:ss} %highlight([%-5level]) %logger{36} - %msg%n</Pattern>
+		</layout>
+	</appender>
+
+	<springProfile name="dev">
+		<!-- 변수 지정 -->
+		<property name="LOG_DIR" value="./app-jypark" />
+		<property name="LOG_PATH_NAME" value="${LOG_DIR}/logback.log" />
+
+		<appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+			<file>${LOG_PATH_NAME}</file>
+			<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+				<fileNamePattern>${LOG_PATH_NAME}.%d{yyyyMMdd}</fileNamePattern>
+				<maxHistory>60</maxHistory> <!-- 일자별 백업파일의 보관기간 -->
+			</rollingPolicy>
+			<layout class="ch.qos.logback.classic.PatternLayout">
+				<Pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [$thread] %highlight([%-5level]) %logger{36} - %msg%n</Pattern>
+			</layout>
+		</appender>
+	</springProfile>
+
+	<springProfile name="prd">
+		<!-- 변수 지정 -->
+		<property name="LOG_DIR" value="/home/webapp/log" />
+		<property name="LOG_PATH_NAME" value="${LOG_DIR}/logback.log" />
+
+		<appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+			<file>${LOG_PATH_NAME}</file>
+			<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+				<fileNamePattern>${LOG_PATH_NAME}.%d{yyyyMMdd}</fileNamePattern>
+				<maxHistory>7</maxHistory> <!-- 일자별 백업파일의 보관기간 -->
+			</rollingPolicy>
+			<layout class="ch.qos.logback.classic.PatternLayout">
+				<Pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %highlight([%-5level]) %logger{36} - %msg%n</Pattern>
+			</layout>
+		</appender>
+	</springProfile>
+
+	<springProfile name="!prd">
+		<springProfile name="!dev">
+			<logger name="kr.jypark.app.api" level="DEBUG" additivity="false">
+				<appender-ref ref="STDOUT" />
+			</logger>
+			<logger name="org.springframework" level="INFO" additivity="false" >
+				<appender-ref ref="STDOUT" />
+			</logger>
+			<logger name="org.apache" level="INFO"  additivity="false">
+				<appender-ref ref="STDOUT" />
+			</logger>
+			<root level="INFO" additivity="false">
+				<appender-ref ref="STDOUT" />
+			</root>
+		</springProfile>
+	</springProfile>
+
+	<springProfile name="dev">
+		<logger name="kr.jypark.app.api" level="DEBUG" >
+			<appender-ref ref="STDOUT" />
+            <appender-ref ref="FILE" />
+		</logger>
+		<logger name="org.springframework" level="INFO" >
+			<appender-ref ref="STDOUT" />
+            <appender-ref ref="FILE" />
+		</logger>
+		<logger name="org.apache" level="INFO" >
+			<appender-ref ref="STDOUT" />
+            <appender-ref ref="FILE" />
+		</logger>
+	</springProfile>
+
+	<springProfile name="prd">
+		<root level="INFO" >
+			<appender-ref ref="STDOUT" />
+			<appender-ref ref="FILE" />
+		</root>
+	</springProfile>
+
+</configuration>
