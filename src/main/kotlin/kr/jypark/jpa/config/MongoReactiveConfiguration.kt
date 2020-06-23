@@ -12,6 +12,6 @@ class MongoReactiveConfiguration : AbstractReactiveMongoConfiguration() {
     @Autowired var mongoClient : MongoClient = MongoClients.create()
 
     override fun getDatabaseName(): String {
-       return "database"
+       return "local"
     }
 }

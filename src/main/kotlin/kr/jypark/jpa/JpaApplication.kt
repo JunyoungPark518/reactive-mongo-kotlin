@@ -8,6 +8,5 @@ import org.springframework.boot.runApplication
 class JpaApplication
 
 fun main(args: Array<String>) {
-    StreamTemplate().test123()
     runApplication<JpaApplication>(*args)
 }

@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:mongo://<\serverName>/<\databaseName>
+    url: jdbc:mongo://localhost:27017/local
     driver-class-name: kr.jypark.jpa.config.NewspicMongoDriver
   jpa:
     hibernate:
