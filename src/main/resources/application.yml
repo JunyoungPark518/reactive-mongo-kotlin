@@ -1,7 +1,7 @@
 spring:
   datasource:
     url: jdbc:mongo://localhost:27017/local
-    driver-class-name: kr.jypark.jpa.config.NewspicMongoDriver
+    driver-class-name: kr.jypark.jpa.config.MongoDriver
   jpa:
     hibernate:
       ddl-auto: none

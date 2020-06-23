@@ -6,7 +6,7 @@ import java.util.logging.Logger
 import javax.persistence.EntityManagerFactory
 import javax.persistence.Persistence
 
-class NewspicMongoDriver : Driver {
+class MongoDriver : Driver {
     @Throws(SQLException::class)
     override fun connect(url: String?, info: Properties?): Connection? {
         return if (info == null) connect(url)
